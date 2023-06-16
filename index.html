@@ -13,14 +13,14 @@
     at the moment of your birth, and can provide detailed insights into your personality, <br>
     motivations, relationships, and more.
 </p>
-<form>
+<form id="birthForm">
     <label for="name">Name or Nickname:</label><br>
     <input id="name" name="name" type="text"><br><br>
     <label for="birthdate">Birth Date:</label><br>
     <input id="birthdate" name="birthdate" type="date"><br><br>
     <label for="birthlocation">Birth Location:</label><br>
     <input id="birthlocation" name="birthlocation" type="text"><br><br>
-    <input type="submit" value="Reveal Birth Chart">
+    <button id="submitButton" type="button">Reveal Birth Chart</button>
 </form>
 
 <canvas height="600" id="astrologyChart" width="600"></canvas>

@@ -58,8 +58,6 @@ function getRotation(date) {
     return diff * 0.986;
 }
 
-// Test the function
-const date = new Date(2023, 6, 16); // June 16, 2023
 
 const prefix = "img/zodiac-signs/";
 const icons = [
@@ -122,3 +120,25 @@ for (let i = 0; i < 36; i++) {
     context.lineWidth = 2;
     drawLine(context, cx + radii[3] * Math.cos(angleStep * i), cy + radii[3] * Math.sin(angleStep * i), cx + (radii[3] - 10) * Math.cos(angleStep * i), cy + (radii[3] - 10) * Math.sin(angleStep * i));
 }
+
+
+//for i in range(0, 360, 10):
+
+document.getElementById("submitButton").addEventListener("click", function (event) {
+    let date = document.getElementById("birthdate").value; // Get the entered date
+    date = new Date(date); // Convert it to a Date object
+    date = getRotation(date) * Math.PI / 180; // Calculate the rotation
+
+    const x = cx + (radii[4] - 10) * Math.cos(date);
+    const y = cy + (radii[4] - 10) * Math.sin(date);
+    const earth = new Image();
+    earth.onload = function () {
+        context.drawImage(earth, x - earth.width / 6, y - earth.height / 6, earth.width / 3, earth.height / 3);
+    }
+    earth.src = "img/planets/sun.png";
+
+    event.preventDefault(); // Prevent the form from submitting normally
+}, false);
+
+
+
