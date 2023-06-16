@@ -9,7 +9,7 @@ function drawEmptyCircle(x, y, radius, lineWidth) {
     context.beginPath();
     context.arc(x, y, radius, 0, 2 * Math.PI, false);
     context.lineWidth = lineWidth;
-    context.strokeStyle = 'black';
+    context.strokeStyle = '#6c5b7b';
     context.stroke();
 }
 
@@ -20,7 +20,7 @@ const cy = canvas.height / 2;
 
 const radii = [100, 120, 210, 250, 290];
 const lineWidths = [0.5, 0.5, 1.5, 1.5, 1];
-
+context.strokeStyle = "#b631df";
 for (let x = 0; x < 5; x++) {
     drawEmptyCircle(cx, cy, radii[x], lineWidths[x]);
 }
@@ -75,8 +75,8 @@ const icons = [
     "pisces.png"
 ];
 
-var radius = 230; // adjust this value
-var angleStep = 30;
+const radius = 230; // adjust this value
+let angleStep = 30;
 // convert angleStep to radians
 angleStep = angleStep * Math.PI / 180;
 
@@ -96,22 +96,26 @@ function drawLine(context, x1, y1, x2, y2) {
     context.stroke(); // render the line
 }
 
+context.strokeStyle = "#b631df";
 for (let i = 0; i < 12; i++) {
-    drawImage(prefix + icons[i], cx + radius * Math.cos(angleStep * i), cy + radius * Math.sin(angleStep * i));
+    const nihe = 30 * Math.PI / 180;
+    drawImage(prefix + icons[i], cx + radius * Math.cos(angleStep * i + nihe), cy + radius * Math.sin(angleStep * i + nihe));
     const lineDistance = 15 * Math.PI / 180;
     drawLine(context, cx + radii[2] * Math.cos(angleStep * i + lineDistance), cy + radii[2] * Math.sin(angleStep * i + lineDistance), cx + radii[3] * Math.cos(angleStep * i + lineDistance), cy + radii[3] * Math.sin(angleStep * i + lineDistance));
 }
 
-var angleStep = 5;
+angleStep = 5;
 // convert angleStep to radians
 angleStep = angleStep * Math.PI / 180;
 
 // draw a line from radius 250 to 240 at 10 degree intervals
 for (let i = 0; i < 72; i++) {
+    // change color of the line to #595940
+
     drawLine(context, cx + radii[3] * Math.cos(angleStep * i), cy + radii[3] * Math.sin(angleStep * i), cx + (radii[3] - 10) * Math.cos(angleStep * i), cy + (radii[3] - 10) * Math.sin(angleStep * i));
 }
 
-var angleStep = 10;
+angleStep = 10;
 // convert angleStep to radians
 angleStep = angleStep * Math.PI / 180;
 
@@ -129,8 +133,8 @@ document.getElementById("submitButton").addEventListener("click", function (even
     date = new Date(date); // Convert it to a Date object
     date = getRotation(date) * Math.PI / 180; // Calculate the rotation
 
-    const x = cx + (radii[4] - 10) * Math.cos(date);
-    const y = cy + (radii[4] - 10) * Math.sin(date);
+    const x = cx + (radii[4] - 20) * Math.cos(date);
+    const y = cy + (radii[4] - 20) * Math.sin(date);
     const earth = new Image();
     earth.onload = function () {
         context.drawImage(earth, x - earth.width / 6, y - earth.height / 6, earth.width / 3, earth.height / 3);
