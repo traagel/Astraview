@@ -1,2 +1,2 @@
 # Astraview
-Astrology app
+[Astrology app](https://traagel.github.io/Astraview/)
