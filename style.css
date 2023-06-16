@@ -1,0 +1,29 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background: linear-gradient(to right, #6c5b7b, #c0c0aa);
+    color: white;
+    font-family: Arial, sans-serif;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+label, input {
+    margin-bottom: 10px;
+    background: ivory;
+    color: black;
+}
+canvas {
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    border-radius: 50px;
+    background: ivory;
+
+}
