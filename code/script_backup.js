@@ -79,6 +79,7 @@ const radius = 230; // adjust this value
 let angleStep = 30;
 // convert angleStep to radians
 angleStep = angleStep * Math.PI / 180;
+angleStep = 30 * Math.PI / 180;
 
 function drawImage(src, x, y) {
     const img = new Image();
