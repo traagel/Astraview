@@ -67,20 +67,57 @@ export class BirthChart {
     }
 
 
-    drawSigns(nihe) {
+    drawSigns(shift) {
         this.context.clearRect(0, 0, this.width, this.height);
         this.drawCircles();
-        nihe = nihe * Math.PI / 180;
+        shift = shift * Math.PI / 180;
 
         for (let i = 0; i < 12; i++) {
             let radius = 230;
             let angleStep = 30 * Math.PI / 180;
-            this.drawImage(this.icons[i], this.cx + radius * Math.cos(angleStep * i + nihe), this.cy + radius * Math.sin(angleStep * i + nihe));
-            const lineDistance = 15 * Math.PI / 180;
-            this.drawLine(this.context, this.cx + this.radii[2] * Math.cos(angleStep * i + lineDistance), this.cy + this.radii[2] * Math.sin(angleStep * i + lineDistance), this.cx + this.radii[3] * Math.cos(angleStep * i + lineDistance), this.cy + this.radii[3] * Math.sin(angleStep * i + lineDistance));
+            this.drawImage(this.icons[i], this.cx + radius * Math.cos(angleStep * i + shift), this.cy + radius * Math.sin(angleStep * i + shift));
+
+
         }
     }
 
+    //function to draw the angle lines between radii[2] and radii[3]
+    drawAngleLines(shift) {
+        let angleSteps = [30, 15, 5].map(step => step * Math.PI / 180);
+        this.context.strokeStyle = "#762089";
+        this.context.lineWidth = 1;
+        let shifts = [15, 7.5, 5].map(shift => shift * Math.PI / 180);
+        let shiftRadians = shift * Math.PI / 180 + shifts[0];
+        let angleStep = 0;
+        let lineLength = 0;
+
+        for (let i = 0; i < 72; i++) {
+            if (i % 5 === 0) {
+                angleStep = angleSteps[0];
+                this.context.lineWidth = 2;
+                this.drawLine(
+                    this.cx + this.radii[3] * Math.cos(angleStep * i + shiftRadians),
+                    this.cy + this.radii[3] * Math.sin(angleStep * i + shiftRadians),
+                    this.cx + (this.radii[2]) * Math.cos(angleStep * i + shiftRadians),
+                    this.cy + (this.radii[2]) * Math.sin(angleStep * i + shiftRadians));
+            }
+            if (i % 2 === 0) {
+                angleStep = angleSteps[1];
+                this.context.lineWidth = 2;
+                lineLength = 15;
+            } else {
+                this.context.lineWidth = 0.5;
+                angleStep = angleSteps[2];
+                lineLength = 10;
+            }
+
+            this.drawLine(
+                this.cx + this.radii[2] * Math.cos(angleStep * i + shiftRadians),
+                this.cy + this.radii[2] * Math.sin(angleStep * i + shiftRadians),
+                this.cx + (this.radii[2] - lineLength) * Math.cos(angleStep * i + shiftRadians),
+                this.cy + (this.radii[2] - lineLength) * Math.sin(angleStep * i + shiftRadians));
+        }
+    }
 
     eraseImages() {
         this.context.globalCompositeOperation = "destination-over";
@@ -88,12 +125,27 @@ export class BirthChart {
     }
 
     animate() {
-        let nihe = 0;
+        let shift = 0;
+        let speed = 0.01;
+        let acceleration = 0.001;
+        let changeDirection = 0;
 
         const drawFrame = () => {
             this.eraseImages();
-            this.drawSigns(nihe);
-            nihe += 0.5;
+            this.drawSigns(shift);
+            this.drawAngleLines(shift);
+
+            // Adjust speed
+            speed += acceleration;
+
+            // Apply speed to shift
+            shift += speed;
+
+            // Randomly decide to change direction
+            if (changeDirection++ % 600 === 0) {
+                acceleration = -acceleration;
+            }
+
             window.requestAnimationFrame(drawFrame);
         }
 
